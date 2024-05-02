@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+    dnscrypt-proxy:
+        #build: .
+        #image: dnscrypt-proxy:local
+        image: cauan/dnscryptproxy
+        tty: true
+        ports:
+          - "0.0.0.0:53:53/udp"
+        container_name: dns
+        restart: always
+        volumes:
+          - ./cloaking-rules.txt:/etc/dnscrypt-proxy/cloaking-rules.txt:z
+        deploy:
+          restart_policy:
+            condition: on-failure
